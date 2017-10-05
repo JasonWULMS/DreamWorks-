@@ -6,6 +6,8 @@ import com.yanzhenjie.nohttp.OkHttpNetworkExecutor;
 import com.yanzhenjie.nohttp.cache.DBCacheStore;
 import com.yanzhenjie.nohttp.cookie.DBCookieStore;
 
+import io.realm.Realm;
+
 /**
  * Created by Jason Wu on 2017/9/10.
  */
@@ -14,6 +16,16 @@ public class Application extends android.app.Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        InitNoHttp();
+        InitRealm();
+
+    }
+
+    private void InitRealm() {
+        Realm.init(this);
+    }
+
+    private void InitNoHttp() {
         NoHttp.initialize(this, new NoHttp.Config()
                 .setConnectTimeout(30 * 1000) // 全局连接超时时间，单位毫秒。
                 .setReadTimeout(30 * 1000) // 全局服务器响应超时时间，单位毫秒。
